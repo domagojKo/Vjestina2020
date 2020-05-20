@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Question {
+struct Question: Codable {
     let id: Int
     let question: String
     let answers: [String]
@@ -19,15 +19,5 @@ struct Question {
         case question
         case answers
         case correctAns = "correct_answer"
-    }
-}
-
-extension Question: Decodable {
-    init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try values.decode(Int.self, forKey: .id)
-        self.question = try values.decode(String.self, forKey: .question)
-        self.correctAns = try values.decode(Int.self, forKey: .correctAns)
-        self.answers = try values.decode([String].self, forKey: .answers)
     }
 }

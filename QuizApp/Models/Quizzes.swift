@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Quizzes {
+struct Quizzes: Codable {
     let quizzes: [Quiz]
     
     enum CodingKeys: String, CodingKey{
@@ -21,12 +21,5 @@ struct Quizzes {
         }
         let uniqueCategories = Array(Set(categories))
         return uniqueCategories
-    }
-}
-
-extension Quizzes: Decodable {
-    init(from decoder:Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        self.quizzes = try values.decode([Quiz].self, forKey: .quizzes)
     }
 }

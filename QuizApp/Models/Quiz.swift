@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct Quiz{
+struct Quiz: Codable {
     let id: Int
     let title: String
     let description: String?
@@ -36,18 +36,5 @@ struct Quiz{
         default:
             return UIColor.black
         }
-    }
-}
-
-extension Quiz: Decodable {
-    init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try values.decode(Int.self, forKey: .id)
-        self.title = try values.decode(String.self, forKey: .title)
-        self.description = try values.decodeIfPresent(String.self, forKey: .description)
-        self.category = try values.decode(String.self, forKey: .category)
-        self.level = try values.decode(Int.self, forKey: .level)
-        self.image = try values.decodeIfPresent(String.self, forKey: .image)
-        self.questions = try values.decode([Question].self, forKey: .questions)
     }
 }

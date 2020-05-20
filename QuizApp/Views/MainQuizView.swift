@@ -110,7 +110,7 @@ class MainQuizView: UIView {
             logoutButton.heightAnchor.constraint(equalTo: self.getQuizButton.heightAnchor),
             logoutButton.leadingAnchor.constraint(equalTo: self.getQuizButton.leadingAnchor),
             logoutButton.trailingAnchor.constraint(equalTo: self.getQuizButton.trailingAnchor),
-            logoutButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20)
+            logoutButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -100)
         ])
     }
 }

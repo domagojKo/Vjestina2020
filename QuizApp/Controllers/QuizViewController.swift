@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class QuizViewController: UIViewController {
     
@@ -14,7 +15,7 @@ class QuizViewController: UIViewController {
     let customQuizView = CustomQuizView()
     var quizArray: Quizzes? = nil
     
-    var getQuizButton: UIButton {
+    var quizButton: UIButton {
         return quizView.getQuizButton
     }
     
@@ -56,15 +57,24 @@ class QuizViewController: UIViewController {
             quizView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
         ])
         
-        getQuizButton.addTarget(self, action: #selector(onGetQuizzes), for: .touchUpInside)
+        quizButton.addTarget(self, action: #selector(onGetQuizzes), for: .touchUpInside)
         logoutBtn.addTarget(self, action: #selector(onLogout), for: .touchUpInside)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
     @objc
     func onGetQuizzes(_ sender: UIButton) {
+        self.onSetupQuizzes()
+    }
+    
+    func onSetupQuizzes() {
         QuizAPI.instance.fetchQuizzes { [weak self] data, error in
             guard let self = self else { return }
-            guard error == nil else {
+            if let _ = error {
                 DispatchQueue.main.async {
                     self.errorLbl.isHidden = false
                 }
@@ -77,19 +87,22 @@ class QuizViewController: UIViewController {
             
             self.quizArray = quizzes
             
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-                let numNBAMentioned = quizzes.quizzes.map{ (quiz:Quiz) -> [Question] in
-                    return quiz.questions.filter { (question) -> Bool in
-                        return question.question.contains("NBA")
-                    }
-                }.count
-                
-                self.funFactDescription.text = "There are \(numNBAMentioned) questions that contain the word NBA!"
-                self.logoutBtn.isHidden = false
-                guard let quizArray = self.quizArray else { return }
-                self.addQuizzes(quizArray: quizArray)
-            }
+            self.setupQuizView()
+        }
+    }
+    
+    func setupQuizView() {
+        guard let quizzes = quizArray else { return }
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            
+            let numNBAMentioned = quizzes.quizzes.map{ $0.questions.filter {
+                $0.question.contains("NBA") }
+            }.count
+            
+            self.funFactDescription.text = "There are \(numNBAMentioned) questions that contain the word NBA!"
+            self.logoutBtn.isHidden = false
+            self.addQuizzes(quizArray: quizzes)
         }
     }
     
@@ -98,18 +111,19 @@ class QuizViewController: UIViewController {
         let randomInt = Int.random(in: 0..<quizArray.quizzes.count)
         let imageUrl = quizArray.quizzes[randomInt].image
         
-        QuizAPI.instance.fetchQuizImage(imageUrl: imageUrl){ [weak self] (image) in
-            guard let self = self else { return }
-            
-            if image != nil {
-                DispatchQueue.main.async {
-                    self.quizImage.image = image
-                }
+        if let url = imageUrl {
+            let imageURL = URL(string: url)
+            DispatchQueue.main.async {
+                self.quizImage.kf.setImage(with: imageURL)
             }
         }
         
+        let textColor = quizArray.quizzes[randomInt].categoryColor()
+        
         quizTitle.text = quizArray.quizzes[randomInt].title
+        quizTitle.textColor = textColor
         quizDescription.text = quizArray.quizzes[randomInt].description
+        quizDescription.textColor = textColor
     }
     
     func setupCustomQuizView() {
@@ -126,10 +140,12 @@ class QuizViewController: UIViewController {
     @objc
     func onLogout(_ sender: UIButton) {
         DispatchQueue.main.async {
-            let loginVC = LoginViewController()
-            self.dismiss(animated: true, completion: nil)
-            self.present(loginVC, animated: true, completion: nil)
+            self.navigationController?.tabBarController?.dismiss(animated: true)
         }
         UserDefaults.standard.set(nil, forKey: "token")
+    }
+    
+    deinit {
+        print("deinit")
     }
 }

@@ -10,9 +10,11 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
     var window: UIWindow?
-
+    
+    var navigationController: UINavigationController?
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         window = UIWindow(frame: UIScreen.main.bounds)
@@ -23,8 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window.makeKeyAndVisible()
             
             if userLoggedIn() {
-                let quizVC = QuizViewController()
-                loginVC.present(quizVC, animated: true, completion: nil)
+                let tabBar = TabBarController()
+                loginVC.present(tabBar, animated: true, completion: nil)
             }
         }
         return true
@@ -33,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func userLoggedIn() -> Bool {
         return !(UserDefaults.standard.object(forKey: "token") == nil)
     }
-
-
+    
+    
 }
 

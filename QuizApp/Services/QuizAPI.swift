@@ -11,11 +11,8 @@ import UIKit
 
 class QuizAPI {
     typealias FetchQuizzesCompletion = (Quizzes?, Error?) -> Void
-    typealias FetchImage = (UIImage?) -> Void
     
     static let instance = QuizAPI()
-    
-    let imageCache = NSCache<AnyObject, AnyObject>()
     
     func fetchQuizzes(completion: @escaping FetchQuizzesCompletion){
         guard let url = URL(string: "https://iosquiz.herokuapp.com/api/quizzes") else {
@@ -41,33 +38,6 @@ class QuizAPI {
             }
         }
         task.resume()
-    }
-    
-    func fetchQuizImage(imageUrl: String?, completion: @escaping FetchImage){
-        if let imageFromCache = imageCache.object(forKey: imageUrl as AnyObject) as? UIImage {
-            completion(imageFromCache)
-            return
-        }
-        
-        guard let imageUrlString = imageUrl else {
-            completion(nil)
-            return
-        }
-        if let url = URL(string: imageUrlString) {
-            let request = URLRequest(url: url)
-            
-            let dataTask = URLSession.shared.dataTask(with: request) { (data, response, error) in
-                if let data = data, let image = UIImage(data: data) {
-                    self.imageCache.setObject(image, forKey: imageUrl as AnyObject)
-                    completion(image)
-                } else {
-                    completion(nil)
-                }
-            }
-            dataTask.resume()
-        } else {
-            completion(nil)
-        }
     }
 }
 
