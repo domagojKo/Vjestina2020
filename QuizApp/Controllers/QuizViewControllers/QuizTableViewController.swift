@@ -25,6 +25,8 @@ class QuizTableViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "PopQuiz"
+        self.navigationController?.navigationItem.setHidesBackButton(true, animated: false)
+        
         self.setupTableView()
         self.getQuizzes()
     }
@@ -43,7 +45,7 @@ class QuizTableViewController: UIViewController {
             quizTableView.topAnchor.constraint(equalTo: self.view.topAnchor),
             quizTableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
         ])
-
+        
         quizTableView.register(QuizCell.self, forCellReuseIdentifier: QuizCell.quizCellIdentifier)
         quizTableView.delegate = self
         quizTableView.dataSource = self
@@ -78,8 +80,13 @@ class QuizTableViewController: UIViewController {
     
     @objc
     func onButtonTapped(sender: UIButton) {
+        self.navigationController?.tabBarController?.dismiss(animated: true, completion: nil)
+        
         UserDefaults.standard.set(nil, forKey: "token")
-        self.navigationController?.tabBarController?.dismiss(animated: true)
+    }
+    
+    deinit {
+        print("Deinit..")
     }
 }
 
@@ -97,6 +104,18 @@ extension QuizTableViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 30
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let quizFiltered = quizzesFilter(section: indexPath.section)
+        
+        let quiz = quizFiltered[indexPath.row]
+        
+        let quizVC = StartQuizViewController()
+        
+        quizVC.quiz = quiz
+        
+        self.navigationController?.pushViewController(quizVC, animated: true)
+    }
 }
 
 extension QuizTableViewController: UITableViewDataSource {
@@ -110,6 +129,8 @@ extension QuizTableViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: QuizCell.quizCellIdentifier, for: indexPath) as! QuizCell
+        
+        cell.selectionStyle = .none
         
         let quizFiltered = quizzesFilter(section: indexPath.section)
         

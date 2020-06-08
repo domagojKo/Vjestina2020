@@ -15,7 +15,7 @@ class QuizAPI {
     static let instance = QuizAPI()
     
     func fetchQuizzes(completion: @escaping FetchQuizzesCompletion){
-        guard let url = URL(string: "https://iosquiz.herokuapp.com/api/quizzes") else {
+        guard let url = URL(string: fetchQuizzesAPI) else {
             completion(nil,nil)
             return
         }

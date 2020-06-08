@@ -14,7 +14,7 @@ class LoginAPI {
     static let instance = LoginAPI()
     
     func fetchToken(username: String, password: String, completion: @escaping FetchTokenCompletion) {
-        guard let url = URL(string: "https://iosquiz.herokuapp.com/api/session") else {
+        guard let url = URL(string: loginAPI) else {
             completion(nil, nil)
             return
         }
@@ -25,7 +25,9 @@ class LoginAPI {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
         
+        //do try napravi
         guard let httpBody = try? JSONSerialization.data(withJSONObject: parameter, options: []) else {
+            //dodaj completion sa errorom
             return
         }
         

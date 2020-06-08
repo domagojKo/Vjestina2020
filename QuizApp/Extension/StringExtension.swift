@@ -1,24 +1,16 @@
 //
-//  Quiz.swift
+//  UIColorExtension.swift
 //  QuizApp
 //
-//  Created by Domagoj Kolaric on 10/05/2020.
+//  Created by Domagoj Kolaric on 08/06/2020.
 //  Copyright © 2020 Domagoj Kolaric. All rights reserved.
 //
 
 import UIKit
 
-struct Quiz: Codable {
-    let id: Int
-    let title: String
-    let description: String
-    let category: String
-    let level: Int
-    let image: String?
-    let questions: [Question]
-    
-    func categoryColor() -> UIColor {
-        switch self.category {
+extension String {
+    func setupColorForCategory() -> UIColor {
+        switch self {
         case "SPORTS":
             return UIColor(red:0.1, green:0.54, blue:0.1, alpha:1.0)
         case "SCIENCE":

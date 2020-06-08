@@ -122,6 +122,8 @@ class LoginViewController: UIViewController {
 
 extension LoginViewController {
     func setupLogin() {
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        
         loginView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             loginView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),

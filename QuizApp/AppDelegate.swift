@@ -13,29 +13,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     
-    var navigationController: UINavigationController?
-    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         
         if let window = window {
-            let loginVC = LoginViewController()
-            window.rootViewController = loginVC
+            let loginViewController = LoginViewController()
+            let navController = UINavigationController(rootViewController: loginViewController)
+            window.rootViewController = navController
             window.makeKeyAndVisible()
             
-            if userLoggedIn() {
-                let tabBar = TabBarController()
-                loginVC.present(tabBar, animated: true, completion: nil)
+            if isUserLoggedIn() {
+                let mainTabBarController = TabBarController()
+                navController.pushViewController(mainTabBarController, animated: false)
             }
         }
+        window?.makeKeyAndVisible()
+        
         return true
     }
     
-    func userLoggedIn() -> Bool {
+    func isUserLoggedIn() -> Bool {
         return !(UserDefaults.standard.object(forKey: "token") == nil)
     }
-    
-    
 }
 

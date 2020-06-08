@@ -96,6 +96,7 @@ class QuizViewController: UIViewController {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             
+            //stavi van dispatcha jer nije vezano uz UI
             let numNBAMentioned = quizzes.quizzes.map{ $0.questions.filter {
                 $0.question.contains("NBA") }
             }.count
