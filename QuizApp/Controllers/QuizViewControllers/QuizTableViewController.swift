@@ -12,7 +12,13 @@ class QuizTableViewController: UIViewController {
     
     let quizTableView = UITableView()
     var footerView: LogoutTableViewFooter!
-    var quizzes = [Quiz]()
+    var quizzes = [Quiz]() {
+        didSet {
+            DispatchQueue.main.async {
+                self.quizTableView.reloadData()
+            }
+        }
+    }
     
     var quizCategories: [String] {
         return quizzes.map { $0.category }
@@ -25,7 +31,6 @@ class QuizTableViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "PopQuiz"
-        //self.navigationController?.navigationItem.setHidesBackButton(true, animated: false)
         
         self.setupTableView()
         self.getQuizzes()
@@ -37,6 +42,7 @@ class QuizTableViewController: UIViewController {
         
         quizTableView.backgroundColor = .clear
         quizTableView.separatorStyle = .none
+        quizTableView.showsVerticalScrollIndicator = false
         quizTableView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
@@ -66,11 +72,6 @@ class QuizTableViewController: UIViewController {
             guard let quizData = data else { return }
             
             self.quizzes = quizData.quizzes
-            
-            DispatchQueue.main.async {
-                self.quizTableView.reloadData()
-            }
-            print(self.quizzes)
         }
     }
     
@@ -80,10 +81,7 @@ class QuizTableViewController: UIViewController {
     
     @objc
     func onLogoutButtonTapped(sender: UIButton) {
-        let loginVC = LoginViewController()
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.window?.rootViewController = loginVC
-        appDelegate.window?.makeKeyAndVisible()
+        self.presentLoginVC()
         UserDefaults.standard.set(nil, forKey: "token")
     }
     

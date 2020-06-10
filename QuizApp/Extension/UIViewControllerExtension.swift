@@ -30,4 +30,20 @@ extension UIViewController {
         alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
         self.present(alertController, animated: true, completion: nil)
     }
+    
+    func presentLoginVC() {
+        let loginVC = LoginViewController()
+        self.appDelegate().window?.rootViewController = loginVC
+        self.appDelegate().window?.makeKeyAndVisible()
+    }
+    
+    func presentTabBar() {
+        let tabBar = TabBarController()
+        self.appDelegate().window?.rootViewController = tabBar
+        self.appDelegate().window?.makeKeyAndVisible()
+    }
+    
+    func appDelegate()->AppDelegate {
+        return UIApplication.shared.delegate as! AppDelegate
+    }
 }

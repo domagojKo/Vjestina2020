@@ -13,6 +13,7 @@ class ScrollabeQuizViewController: UIViewController {
     let scrollableQuizView = ScrollableQuizView()
     
     var quiz: Quiz!
+    var result: Result!
     var startTimer: TimeInterval?
     var currentQuestionIndex = 0
     var time: Double? = nil
@@ -111,31 +112,52 @@ class ScrollabeQuizViewController: UIViewController {
     @objc
     func onSendResult(_ sender: UIButton) {
         guard let quizId = self.quiz?.id else { return }
-
+        
         guard let userId = UserDefaults.standard.object(forKey: "id") as? Int else {
             return
         }
         
         guard let time = self.time else { return }
-
+        
         let result = Result(quiz_id: quizId, user_id: userId, time: time, no_of_correct: correctAnswers)
         
+        self.result = result
+        
+        self.sendResult()
+    }
+    
+    func sendResult() {
         QuizAPI.instance.sendQuizResult(result: result) { [weak self] response, err in
             guard let self = self else { return }
             
             guard err == nil else {
-                print("Error while sending results!")
+                if let error = err {
+                    DispatchQueue.main.async {
+                        self.quizAlert(description: error.localizedDescription)
+                    }
+                }
                 return
             }
             
-            guard let response = response, response.rawValue == 200 else {
-                return
-            }
+            guard let response = response else { return }
             
-            DispatchQueue.main.async {
-                self.navigationController?.popToRootViewController(animated: true)
+            if response.rawValue == 200 {
+                DispatchQueue.main.async {
+                    self.navigationController?.popToRootViewController(animated: true)
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.quizAlert(description: response.stringServerResponse)
+                }
             }
         }
+    }
+    
+    func quizAlert(description: String) {
+        let alertController = UIAlertController(title: "Error!", message: description, preferredStyle: .alert)
+        let action = UIAlertAction(title: "Send again", style: .default, handler: nil)
+        alertController.addAction(action)
+        present(alertController, animated: true, completion: self.sendResult)
     }
     
     deinit {
