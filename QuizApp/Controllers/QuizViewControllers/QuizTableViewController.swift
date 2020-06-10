@@ -25,7 +25,7 @@ class QuizTableViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "PopQuiz"
-        self.navigationController?.navigationItem.setHidesBackButton(true, animated: false)
+        //self.navigationController?.navigationItem.setHidesBackButton(true, animated: false)
         
         self.setupTableView()
         self.getQuizzes()
@@ -53,7 +53,7 @@ class QuizTableViewController: UIViewController {
         footerView = LogoutTableViewFooter(frame: CGRect(x: 0, y: 0, width: quizTableView.frame.width, height: 100))
         quizTableView.tableFooterView = footerView
         
-        footerView.logoutButton.addTarget(self, action: #selector(onButtonTapped), for: .touchUpInside)
+        footerView.logoutButton.addTarget(self, action: #selector(onLogoutButtonTapped), for: .touchUpInside)
     }
     
     func getQuizzes() {
@@ -79,9 +79,11 @@ class QuizTableViewController: UIViewController {
     }
     
     @objc
-    func onButtonTapped(sender: UIButton) {
-        self.navigationController?.tabBarController?.dismiss(animated: true, completion: nil)
-        
+    func onLogoutButtonTapped(sender: UIButton) {
+        let loginVC = LoginViewController()
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.window?.rootViewController = loginVC
+        appDelegate.window?.makeKeyAndVisible()
         UserDefaults.standard.set(nil, forKey: "token")
     }
     

@@ -12,12 +12,12 @@ class TabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        
-//        if !userLoggedIn() {
-//            let loginVC = LoginViewController()
-//            let navController = UINavigationController(rootViewController: loginVC)
-//            self.present(navController, animated: true, completion: nil)
-//        }
+        let tokenUserDefaults = UserDefaults.standard.string(forKey: "token")
+        if tokenUserDefaults == nil {
+            let loginVC = LoginViewController()
+            let navController = UINavigationController(rootViewController: loginVC)
+            self.present(navController, animated: true, completion: nil)
+        }
         
         self.setupTabBarControllers()
     }
@@ -36,12 +36,8 @@ class TabBarController: UITabBarController {
         settingsNavController.tabBarItem = UITabBarItem(title: "Settings", image: UIImage(named: "Settings"), tag: 1)
         
         viewControllers = [quizNavController, seachNavController, settingsNavController]
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
+//        self.navigationController?.setNavigationBarHidden(true, animated: false)
         tabBar.tintColor = .black
-    }
-    
-    func userLoggedIn() -> Bool {
-        return !(UserDefaults.standard.object(forKey: "token") == nil)
     }
 
 }

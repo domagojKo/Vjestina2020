@@ -35,11 +35,22 @@ class StartQuizViewController: UIViewController {
             quizView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 120),
             quizView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -120)
         ])
+        
+        startQuizBtn.addTarget(self, action: #selector(onStartQuiz), for: .touchUpInside)
     }
     
     func setupDataForQuizView() {
         guard let quizData = quiz else { return }
         self.quizView.setupQuizView(quiz: quizData)
+    }
+    
+    @objc
+    func onStartQuiz(_ sender: UIButton) {
+        guard let quizData = quiz else { return }
+        let scrollableQuizVC = ScrollabeQuizViewController()
+        scrollableQuizVC.quiz = quizData
+        self.navigationController?.pushViewController(scrollableQuizVC, animated: true)
+        
     }
    
     deinit {

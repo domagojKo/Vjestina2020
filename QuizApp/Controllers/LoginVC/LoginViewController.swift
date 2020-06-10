@@ -79,9 +79,10 @@ class LoginViewController: UIViewController {
             UserDefaults.standard.setValue(token.id, forKey: "id")
             
             DispatchQueue.main.async {
-                let tabBarController = TabBarController()
-                tabBarController.modalPresentationStyle = .fullScreen
-                self.present(tabBarController, animated: true, completion: nil)
+                let tabBar = TabBarController()
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                appDelegate.window?.rootViewController = tabBar
+                appDelegate.window?.makeKeyAndVisible()
             }
         }
     }
