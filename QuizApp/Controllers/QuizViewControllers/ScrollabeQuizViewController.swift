@@ -28,11 +28,12 @@ class ScrollabeQuizViewController: UIViewController {
         
         self.title = "PopQuiz"
         self.setupView()
-        self.activetaTime()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        self.activetaTime()
         self.setupQuiz()
     }
     
@@ -52,8 +53,6 @@ class ScrollabeQuizViewController: UIViewController {
     }
     
     func setupQuiz() {
-        guard let quiz = quiz else { return }
-        
         self.scrollableQuizView.setupQuestion(quiz: quiz)
         
         scrollableQuizView.questionViews.forEach{ questionView in
@@ -70,7 +69,7 @@ class ScrollabeQuizViewController: UIViewController {
     
     @objc
     func onAnswerBtnTapped(_ sender: UIButton) {
-        if sender.tag == self.quiz!.questions[currentQuestionIndex].correctAns {
+        if sender.tag == self.quiz.questions[currentQuestionIndex].correctAns {
             self.correctAnswers += 1
             UIView.animate(withDuration: 0.4){
                 sender.backgroundColor = UIColor.green
@@ -88,7 +87,7 @@ class ScrollabeQuizViewController: UIViewController {
             self.scrollableQuizView.scrollView.contentOffset = CGPoint(x: current.x+self.view.frame.width, y: 0)
         })
         
-        if currentQuestionIndex == quiz?.questions.count {
+        if currentQuestionIndex == quiz.questions.count {
             guard startTimer != nil else { return }
             self.timeCalculation()
         }
@@ -100,7 +99,7 @@ class ScrollabeQuizViewController: UIViewController {
         let minutes : Int = Int(time) / 60
         let seconds = time - Double(minutes * 60)
         
-        UIView.animate(withDuration: 0.6, delay: 0.5, options:UIView.AnimationOptions.curveEaseInOut, animations: {
+        UIView.animate(withDuration: 0.7, delay: 0.5, options:UIView.AnimationOptions.curveEaseInOut, animations: {
             self.scrollableQuizView.scrollView.alpha = 0.0
             self.scrollableQuizView.correctAnsLabel.alpha = 1.0
             self.scrollableQuizView.sendResultButton.alpha = 1.0
@@ -111,15 +110,14 @@ class ScrollabeQuizViewController: UIViewController {
     
     @objc
     func onSendResult(_ sender: UIButton) {
-        guard let quizId = self.quiz?.id else { return }
-        
+        //zaredaj guard da ljepse izgleda, da je preglednije
         guard let userId = UserDefaults.standard.object(forKey: "id") as? Int else {
             return
         }
         
         guard let time = self.time else { return }
         
-        let result = Result(quiz_id: quizId, user_id: userId, time: time, no_of_correct: correctAnswers)
+        let result = Result(quiz_id: self.quiz.id, user_id: userId, time: time, no_of_correct: correctAnswers)
         
         self.result = result
         

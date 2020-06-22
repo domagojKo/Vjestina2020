@@ -5,5 +5,6 @@ target 'QuizApp' do
 
 	pod 'Alamofire', '~> 4.9'
 	pod 'Kingfisher', '~> 4.9'
+	pod 'PureLayout'
 
 end

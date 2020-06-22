@@ -14,6 +14,7 @@ class QuizView: UIView {
     let imageView = UIImageView()
     let descriptionLabel = UILabel()
     let startQuizButton = UIButton()
+    let leaderboardButton = UIButton(type: .custom)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -36,6 +37,7 @@ class QuizView: UIView {
         self.addSubview(imageView)
         self.addSubview(descriptionLabel)
         self.addSubview(startQuizButton)
+        self.addSubview(leaderboardButton)
     }
     
     func setupStyleOfSubviews() {
@@ -60,16 +62,28 @@ class QuizView: UIView {
         imageView.layer.cornerRadius = 10
         
         startQuizButton.setupButton(title: "Start Quiz", opacity: 1)
+        
+        leaderboardButton.setTitle("Leaderboard", for: .normal)
+        leaderboardButton.setTitleColor(.white, for: .normal)
+        leaderboardButton.titleLabel?.font = UIFont(name: "Arial", size: 16)
+
     }
     
     func setupLayout() {
         containerView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            containerView.topAnchor.constraint(equalTo: self.topAnchor),
-            containerView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            containerView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            containerView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
+            containerView.topAnchor.constraint(equalTo: self.topAnchor, constant: 150),
+            containerView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -120),
+            containerView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
+            containerView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10)
         ])
+        
+        leaderboardButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            leaderboardButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 100),
+            leaderboardButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
+            leaderboardButton.heightAnchor.constraint(equalToConstant: 45),
+            leaderboardButton.widthAnchor.constraint(equalToConstant: 100)])
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -77,14 +91,14 @@ class QuizView: UIView {
             titleLabel.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: -20),
             titleLabel.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor, constant: 20)
         ])
-        
+
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             descriptionLabel.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 20),
             descriptionLabel.leadingAnchor.constraint(equalTo: self.titleLabel.leadingAnchor),
             descriptionLabel.trailingAnchor.constraint(equalTo: self.titleLabel.trailingAnchor)
         ])
-        
+
         imageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             imageView.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor, constant: 10),
@@ -92,7 +106,7 @@ class QuizView: UIView {
             imageView.topAnchor.constraint(equalTo: self.descriptionLabel.bottomAnchor, constant: 10),
             imageView.bottomAnchor.constraint(equalTo: self.startQuizButton.topAnchor, constant: -20)
         ])
-        
+
         startQuizButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             startQuizButton.leadingAnchor.constraint(equalTo: self.imageView.leadingAnchor),

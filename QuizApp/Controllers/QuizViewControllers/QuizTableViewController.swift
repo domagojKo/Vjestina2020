@@ -55,11 +55,6 @@ class QuizTableViewController: UIViewController {
         quizTableView.register(QuizCell.self, forCellReuseIdentifier: QuizCell.quizCellIdentifier)
         quizTableView.delegate = self
         quizTableView.dataSource = self
-        
-        footerView = LogoutTableViewFooter(frame: CGRect(x: 0, y: 0, width: quizTableView.frame.width, height: 100))
-        quizTableView.tableFooterView = footerView
-        
-        footerView.logoutButton.addTarget(self, action: #selector(onLogoutButtonTapped), for: .touchUpInside)
     }
     
     func getQuizzes() {
@@ -79,14 +74,8 @@ class QuizTableViewController: UIViewController {
         return quizzes.filter { $0.category == uniqueCategories[section] }
     }
     
-    @objc
-    func onLogoutButtonTapped(sender: UIButton) {
-        self.presentLoginVC()
-        UserDefaults.standard.set(nil, forKey: "token")
-    }
-    
     deinit {
-        print("Deinit..")
+        print("Deinit Quiz TableVC.")
     }
 }
 

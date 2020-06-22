@@ -89,26 +89,23 @@ class ScrollableQuizView: UIView {
 
 extension ScrollableQuizView {
     func setupQuestion(quiz: Quiz) {
-        if !isSetup {
-            let width = self.frame.size.width
-            var length: CGFloat = 0.0
-            self.scrollView.contentSize.width = CGFloat(quiz.questions.count) * width
-            
-            quiz.questions.forEach{question in
-                let questionView = QuestionView()
-                questionView.setupQuestion(question: question)
+        let width = self.frame.size.width
+        var length: CGFloat = 0.0
+        self.scrollView.contentSize.width = CGFloat(quiz.questions.count) * width
+        
+        quiz.questions.forEach{question in
+            let questionView = QuestionView()
+            questionView.setupQuestion(question: question)
 
-                questionViews.append(questionView)
+            questionViews.append(questionView)
 
-                scrollView.addSubview(questionView)
-                questionView.frame = CGRect(x: 0, y: 0, width: scrollView.frame.width * 0.90, height: scrollView.frame.height * 0.9)
+            scrollView.addSubview(questionView)
+            questionView.frame = CGRect(x: 0, y: 0, width: scrollView.frame.width * 0.90, height: scrollView.frame.height * 0.9)
 
-                questionView.center.x = scrollView.center.x
-                questionView.transform = CGAffineTransform(translationX: length, y: 0)
+            questionView.center.x = scrollView.center.x
+            questionView.transform = CGAffineTransform(translationX: length, y: 0)
 
-                length = length + width
-                isSetup = true
-            }
+            length = length + width
         }
     }
 }

@@ -79,6 +79,7 @@ class LoginViewController: UIViewController {
             UserDefaults.standard.setValue(token.id, forKey: "id")
             
             DispatchQueue.main.async {
+                UserDefaults.standard.set(self.userField.text ?? "", forKey: "username")
                 self.presentTabBar()
             }
         }
