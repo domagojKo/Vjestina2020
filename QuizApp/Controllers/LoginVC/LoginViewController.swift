@@ -56,6 +56,12 @@ class LoginViewController: UIViewController {
         userField.delegate = self
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        loginView.animateViewElementsIn()
+    }
+    
     @objc
     func onLoginAction(_ sender: UIButton) {
         guard let username = userField.text else { return }
@@ -63,6 +69,8 @@ class LoginViewController: UIViewController {
         guard let pass = passField.text else { return }
         
         self.fetchingToken(username: username, password: pass)
+
+        loginView.animateViewElementsOut()
     }
     
     func fetchingToken(username: String, password: String) {
