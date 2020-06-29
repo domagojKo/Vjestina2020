@@ -20,6 +20,8 @@
 		FF84A0F124546494005D1E21 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF84A0F024546494005D1E21 /* LoginViewController.swift */; };
 		FF84A0F624546498005D1E21 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF84A0F524546498005D1E21 /* Assets.xcassets */; };
 		FF84A10524546755005D1E21 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF84A10424546755005D1E21 /* LoginView.swift */; };
+		FF8B564624A7991C004F2D5A /* Quiz.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FF8B564424A7991C004F2D5A /* Quiz.xcdatamodeld */; };
+		FF8B564824A79BA8004F2D5A /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8B564724A79BA8004F2D5A /* CoreDataStack.swift */; };
 		FF9C8421248FD7F40098FA96 /* QuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9C8420248FD7F40098FA96 /* QuestionView.swift */; };
 		FF9C8423248FE1190098FA96 /* ScrollabeQuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9C8422248FE1190098FA96 /* ScrollabeQuizViewController.swift */; };
 		FF9C8425248FE1890098FA96 /* ScrollableQuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9C8424248FE1890098FA96 /* ScrollableQuizView.swift */; };
@@ -34,6 +36,12 @@
 		FFC0213B246B3B2B003C68AE /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0213A246B3B2B003C68AE /* TabBarController.swift */; };
 		FFC0213D246B42CA003C68AE /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0213C246B42CA003C68AE /* SearchViewController.swift */; };
 		FFC0213F246B4305003C68AE /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0213E246B4305003C68AE /* SettingsViewController.swift */; };
+		FFC37E0124A9F876004D6DD5 /* Quiz+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC37DFB24A9F876004D6DD5 /* Quiz+CoreDataClass.swift */; };
+		FFC37E0224A9F876004D6DD5 /* Quiz+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC37DFC24A9F876004D6DD5 /* Quiz+CoreDataProperties.swift */; };
+		FFC37E0324A9F876004D6DD5 /* Question+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC37DFD24A9F876004D6DD5 /* Question+CoreDataClass.swift */; };
+		FFC37E0424A9F876004D6DD5 /* Question+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC37DFE24A9F876004D6DD5 /* Question+CoreDataProperties.swift */; };
+		FFC37E0524A9F876004D6DD5 /* Answer+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC37DFF24A9F876004D6DD5 /* Answer+CoreDataClass.swift */; };
+		FFC37E0624A9F876004D6DD5 /* Answer+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC37E0024A9F876004D6DD5 /* Answer+CoreDataProperties.swift */; };
 		FFD645FB2461B48B001769E0 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD645FA2461B48B001769E0 /* UIViewControllerExtension.swift */; };
 		FFD645FD2461CBEA001769E0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FFD645FC2461CBEA001769E0 /* LaunchScreen.storyboard */; };
 		FFD6460124620881001769E0 /* UITextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD6460024620881001769E0 /* UITextFieldExtension.swift */; };
@@ -67,6 +75,8 @@
 		FF84A0F524546498005D1E21 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FF84A0FA24546498005D1E21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FF84A10424546755005D1E21 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		FF8B564524A7991C004F2D5A /* Quiz.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Quiz.xcdatamodel; sourceTree = "<group>"; };
+		FF8B564724A79BA8004F2D5A /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		FF9C8420248FD7F40098FA96 /* QuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionView.swift; sourceTree = "<group>"; };
 		FF9C8422248FE1190098FA96 /* ScrollabeQuizViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollabeQuizViewController.swift; sourceTree = "<group>"; };
 		FF9C8424248FE1890098FA96 /* ScrollableQuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableQuizView.swift; sourceTree = "<group>"; };
@@ -81,6 +91,12 @@
 		FFC0213A246B3B2B003C68AE /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		FFC0213C246B42CA003C68AE /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		FFC0213E246B4305003C68AE /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		FFC37DFB24A9F876004D6DD5 /* Quiz+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Quiz+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		FFC37DFC24A9F876004D6DD5 /* Quiz+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Quiz+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		FFC37DFD24A9F876004D6DD5 /* Question+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Question+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		FFC37DFE24A9F876004D6DD5 /* Question+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Question+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		FFC37DFF24A9F876004D6DD5 /* Answer+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Answer+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		FFC37E0024A9F876004D6DD5 /* Answer+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Answer+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		FFD645FA2461B48B001769E0 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		FFD645FC2461CBEA001769E0 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FFD6460024620881001769E0 /* UITextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtension.swift; sourceTree = "<group>"; };
@@ -216,6 +232,7 @@
 		FF84A0EB24546494005D1E21 /* QuizApp */ = {
 			isa = PBXGroup;
 			children = (
+				FF8B564324A798FD004F2D5A /* CoreData */,
 				FF593202248E9F59000B1FD7 /* Constants */,
 				FFD645F92461B466001769E0 /* Extension */,
 				FF84A103245466B8005D1E21 /* Services */,
@@ -280,6 +297,21 @@
 				FFA11FF624689A69007C6F7D /* QuizAPI.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		FF8B564324A798FD004F2D5A /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				FFC37DFB24A9F876004D6DD5 /* Quiz+CoreDataClass.swift */,
+				FFC37DFC24A9F876004D6DD5 /* Quiz+CoreDataProperties.swift */,
+				FFC37DFD24A9F876004D6DD5 /* Question+CoreDataClass.swift */,
+				FFC37DFE24A9F876004D6DD5 /* Question+CoreDataProperties.swift */,
+				FFC37DFF24A9F876004D6DD5 /* Answer+CoreDataClass.swift */,
+				FFC37E0024A9F876004D6DD5 /* Answer+CoreDataProperties.swift */,
+				FF8B564724A79BA8004F2D5A /* CoreDataStack.swift */,
+				FF8B564424A7991C004F2D5A /* Quiz.xcdatamodeld */,
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 		FFD645F92461B466001769E0 /* Extension */ = {
@@ -432,11 +464,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FFC37E0124A9F876004D6DD5 /* Quiz+CoreDataClass.swift in Sources */,
 				FFA11FF724689A69007C6F7D /* QuizAPI.swift in Sources */,
 				FFE418C224A1607200BF82A5 /* LogoutView.swift in Sources */,
 				FF9C8423248FE1190098FA96 /* ScrollabeQuizViewController.swift in Sources */,
 				FF59320E248EBEEB000B1FD7 /* StartQuizViewController.swift in Sources */,
+				FF8B564624A7991C004F2D5A /* Quiz.xcdatamodeld in Sources */,
 				FFC0213B246B3B2B003C68AE /* TabBarController.swift in Sources */,
+				FF8B564824A79BA8004F2D5A /* CoreDataStack.swift in Sources */,
+				FFC37E0624A9F876004D6DD5 /* Answer+CoreDataProperties.swift in Sources */,
+				FFC37E0224A9F876004D6DD5 /* Quiz+CoreDataProperties.swift in Sources */,
 				FF593206248EAAF4000B1FD7 /* LogoutTableViewFooter.swift in Sources */,
 				FFD645FB2461B48B001769E0 /* UIViewControllerExtension.swift in Sources */,
 				FFED7A5D249052B0006B1192 /* Result.swift in Sources */,
@@ -449,8 +486,10 @@
 				FFA11FF5246887D2007C6F7D /* UIButtonExtension.swift in Sources */,
 				FFD6460324620C5E001769E0 /* Token.swift in Sources */,
 				FFD6460124620881001769E0 /* UITextFieldExtension.swift in Sources */,
+				FFC37E0524A9F876004D6DD5 /* Answer+CoreDataClass.swift in Sources */,
 				FFA11FF1246884F6007C6F7D /* QuizViewController.swift in Sources */,
 				FF84A10524546755005D1E21 /* LoginView.swift in Sources */,
+				FFC37E0324A9F876004D6DD5 /* Question+CoreDataClass.swift in Sources */,
 				FFA11FF32468859D007C6F7D /* MainQuizView.swift in Sources */,
 				FF5931FF248E78E5000B1FD7 /* QuizzesTableSectionHeader.swift in Sources */,
 				FFA11FFB24689B36007C6F7D /* Question.swift in Sources */,
@@ -467,6 +506,7 @@
 				FFD7D9ED249EA600008292B0 /* LeaderboardHeaderView.swift in Sources */,
 				FFA11FFF2468B0BF007C6F7D /* CustomQuizView.swift in Sources */,
 				FFD7D9EB249EA5D4008292B0 /* LeaderboardCell.swift in Sources */,
+				FFC37E0424A9F876004D6DD5 /* Question+CoreDataProperties.swift in Sources */,
 				FFC0213F246B4305003C68AE /* SettingsViewController.swift in Sources */,
 				FF9C8425248FE1890098FA96 /* ScrollableQuizView.swift in Sources */,
 			);
@@ -651,6 +691,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		FF8B564424A7991C004F2D5A /* Quiz.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				FF8B564524A7991C004F2D5A /* Quiz.xcdatamodel */,
+			);
+			currentVersion = FF8B564524A7991C004F2D5A /* Quiz.xcdatamodel */;
+			path = Quiz.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = FF84A0E124546494005D1E21 /* Project object */;
 }

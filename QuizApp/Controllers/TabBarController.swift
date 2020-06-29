@@ -12,13 +12,6 @@ class TabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        //bolje premjesti u app delegate
-        let tokenUserDefaults = UserDefaults.standard.string(forKey: "token")
-        if tokenUserDefaults == nil {
-            let loginVC = LoginViewController()
-            let navController = UINavigationController(rootViewController: loginVC)
-            self.present(navController, animated: true, completion: nil)
-        }
         
         self.setupTabBarControllers()
     }
