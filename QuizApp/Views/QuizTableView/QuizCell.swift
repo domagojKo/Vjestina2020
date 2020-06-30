@@ -124,10 +124,10 @@ class QuizCell: UITableViewCell {
 }
 
 extension QuizCell {
-    func setupQuizzCell(quiz: Quiz) {
+    func setupQuizzCell(quiz: Quizz) {
         self.titleLabel.text = quiz.title
-        self.descriptionLabel.text = quiz.description
-        self.quizDifficultyLvlLabel.text = String(repeating: "✩", count: quiz.level)
+        self.descriptionLabel.text = quiz.descriptionn
+        self.quizDifficultyLvlLabel.text = String(repeating: "✩", count: Int(quiz.level))
         
         if let url = quiz.image,
             let imageURL = URL(string: url) {

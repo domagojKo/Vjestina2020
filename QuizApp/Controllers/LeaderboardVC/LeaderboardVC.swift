@@ -15,7 +15,7 @@ class LeaderboardVC: UIViewController {
     let tableView = UITableView()
     var headerView: LeaderboardHeaderView!
     
-    var rank: Int?
+    var rank: Int16?
     
     var usersRank = [Rank]() {
         didSet {
@@ -61,7 +61,7 @@ class LeaderboardVC: UIViewController {
     func getRankingData() {
         guard let rank = rank else { return }
         
-        QuizAPI.instance.fetchRank(quizId: rank) { [weak self] data, error in
+        QuizAPI.instance.fetchRank(quizId: Int(rank)) { [weak self] data, error in
             guard let self = self else { return }
             
             if let err = error {

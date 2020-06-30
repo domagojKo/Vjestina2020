@@ -13,6 +13,7 @@ class QuizAPI {
     typealias FetchQuizzesCompletion = (Quizzes?, Error?) -> Void
     typealias SendResultCompletion = (ServerResponse?, Error?) -> Void
     typealias RankingCompletion = ([Rank]?, Error?) -> Void
+    typealias FetchQuizzCompletion = ([Quizz]?, Error?) -> Void
     
     static let instance = QuizAPI()
     
@@ -109,6 +110,34 @@ class QuizAPI {
                 completion(rankModel, nil)
             } catch let parsingError {
                 print("Error", parsingError)
+                completion(nil, parsingError)
+            }
+        }
+        task.resume()
+    }
+    
+    func fetchQuizzesV2(completion: @escaping FetchQuizzCompletion) {
+        guard let url = URL(string: fetchQuizzesAPI) else {
+            completion(nil,nil)
+            return
+        }
+        
+        let task = URLSession.shared.dataTask(with: url) { (data, _, error) in
+            guard let dataResponse = data,
+                error == nil else {
+                    completion(nil, error)
+                    return
+            }
+            
+            do {
+                guard let parsedData = try JSONSerialization.jsonObject(with: dataResponse, options: []) as?
+                    [String: [[String: Any]]] else { return }
+                guard let data = parsedData["quizzes"] else { return }
+                let quizzes = data.compactMap{ Quizz.init(dict: $0, context: CoreDataStack.instance.context)}
+                CoreDataStack.instance.saveContext()
+                completion(quizzes, nil)
+            } catch let parsingError {
+                print("Errorrrrr!")
                 completion(nil, parsingError)
             }
         }

@@ -11,7 +11,7 @@ import UIKit
 class StartQuizViewController: UIViewController {
     
     let quizView = QuizView()
-    var quiz: Quiz? = nil
+    var quiz: Quizz? = nil
     
     var startQuizBtn: UIButton {
         return quizView.startQuizButton
@@ -61,7 +61,7 @@ class StartQuizViewController: UIViewController {
     @objc
     func onLeaderboard(_ sender: UIButton) {
         let leaderboardVC = LeaderboardVC()
-        leaderboardVC.rank = quiz?.id
+        leaderboardVC.rank = quiz!.id
         self.navigationController?.pushViewController(leaderboardVC, animated: true)
     }
    

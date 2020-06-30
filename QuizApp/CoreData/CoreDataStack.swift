@@ -34,10 +34,17 @@ final class CoreDataStack {
         if context.hasChanges {
             do {
                 try context.save()
+                print("CORE DATA - Saving Context")
             } catch {
                 let nserror = error as NSError
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
         }
+    }
+    
+    var quizzes: [Quizz]? {
+        let request: NSFetchRequest<Quizz> = Quizz.fetchRequest()
+        guard let quizzes = try? context.fetch(request) else { return nil }
+        return quizzes
     }
 }

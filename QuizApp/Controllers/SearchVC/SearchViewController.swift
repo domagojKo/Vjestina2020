@@ -13,8 +13,8 @@ class SearchViewController: UIViewController {
     let searchView = SearchBarView()
     let tableView = UITableView()
     
-    var quizzes: [Quiz]?
-    var filteredQuizz = [Quiz]()
+    var quizzes1: [Quizz]?
+    var filteredQuizz = [Quizz]()
     
     var searchingStr: String?
     
@@ -23,7 +23,7 @@ class SearchViewController: UIViewController {
     }
     
     var quizCategories: [String] {
-        return filteredQuizz.map { $0.category }
+        return filteredQuizz.map { $0.category! }
     }
     
     var uniqueCategories: [String] {
@@ -77,31 +77,23 @@ class SearchViewController: UIViewController {
     }
     
     func getQuizzes() {
-        QuizAPI.instance.fetchQuizzes { [weak self] data, error in
-            guard let self = self else { return }
-            if let err = error {
-                print("Problem with fetching data: \(err.localizedDescription)")
-                return
-            }
-            guard let quizData = data else { return }
-            
-            self.quizzes = quizData.quizzes
-        }
+        self.quizzes1 = CoreDataStack.instance.quizzes ?? []
+        tableView.reloadData()
     }
     
     func quizFilter(search: String) {
-        guard let quizzes = quizzes, search.count > 0 else {
+        guard let quizzes = quizzes1, search.count > 0 else {
             self.filteredQuizz = []
             return
         }
         
         filteredQuizz = quizzes.filter { quiz in
-            quiz.title.lowercased().starts(with: search.lowercased()) == true ||
+            quiz.title?.lowercased().starts(with: search.lowercased()) == true ||
             quiz.description.lowercased().contains(search.lowercased()) == true
         }
     }
     
-    func quizzesFilter(section: Int) -> [Quiz] {
+    func quizzesFilter(section: Int) -> [Quizz] {
         return filteredQuizz.filter { $0.category == uniqueCategories[section] }
     }
     

@@ -115,9 +115,9 @@ class QuizView: UIView {
             startQuizButton.heightAnchor.constraint(equalToConstant: 45)])
     }
     
-    func setupQuizView(quiz: Quiz){
+    func setupQuizView(quiz: Quizz){
         self.titleLabel.text = quiz.title
-        self.descriptionLabel.text = quiz.description
+        self.descriptionLabel.text = quiz.descriptionn
         
         if let url = quiz.image,
             let imageURL = URL(string: url) {

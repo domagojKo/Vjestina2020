@@ -88,14 +88,16 @@ class ScrollableQuizView: UIView {
 }
 
 extension ScrollableQuizView {
-    func setupQuestion(quiz: Quiz) {
+    func setupQuestion(quiz: Quizz) {
         let width = self.frame.size.width
         var length: CGFloat = 0.0
-        self.scrollView.contentSize.width = CGFloat(quiz.questions.count) * width
+        self.scrollView.contentSize.width = CGFloat(quiz.questions!.count) * width
         
-        quiz.questions.forEach{question in
+        guard let questions = quiz.questions?.allObjects as? [Questionn] else { return }
+        let sortedQuestions = questions.sorted { $0.id < $1.id }
+        sortedQuestions.forEach{question in
             let questionView = QuestionView()
-            questionView.setupQuestion(question: question)
+            questionView.setupQuestion(question: question )
 
             questionViews.append(questionView)
 

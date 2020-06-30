@@ -12,5 +12,10 @@ import CoreData
 
 @objc(Answer)
 public class Answer: NSManagedObject {
-
+    
+    convenience init(answer: String, index: Int, context: NSManagedObjectContext) {
+        self.init(context: context)
+        self.answer = answer
+        self.index = Int16(index)
+    }
 }

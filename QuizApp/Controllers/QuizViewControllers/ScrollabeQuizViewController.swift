@@ -12,14 +12,14 @@ class ScrollabeQuizViewController: UIViewController {
     
     let scrollableQuizView = ScrollableQuizView()
     
-    var quiz: Quiz!
+    var quiz: Quizz!
     var result: Result!
     var startTimer: TimeInterval?
     var currentQuestionIndex = 0
     var time: Double? = nil
     var correctAnswers = 0 {
         didSet {
-            self.scrollableQuizView.correctAnsLabel.text = "\(correctAnswers)/\(quiz.questions.count)"
+            self.scrollableQuizView.correctAnsLabel.text = "\(correctAnswers)/\(quiz.questions?.count ?? 0)"
         }
     }
     
@@ -69,7 +69,8 @@ class ScrollabeQuizViewController: UIViewController {
     
     @objc
     func onAnswerBtnTapped(_ sender: UIButton) {
-        if sender.tag == self.quiz.questions[currentQuestionIndex].correctAns {
+        guard let questions = self.quiz.questions?.allObjects as? [Questionn] else { return }
+        if sender.tag == Int(questions[currentQuestionIndex].correctAns) {
             self.correctAnswers += 1
             UIView.animate(withDuration: 0.4){
                 sender.backgroundColor = UIColor.green
@@ -79,15 +80,15 @@ class ScrollabeQuizViewController: UIViewController {
                 sender.backgroundColor = UIColor.red
             }
         }
-        
+
         currentQuestionIndex += 1
-        
+
         let current = scrollableQuizView.scrollView.contentOffset
         UIView.animate(withDuration: 0.4, delay: 0.5, options:UIView.AnimationOptions.curveEaseInOut, animations: {
             self.scrollableQuizView.scrollView.contentOffset = CGPoint(x: current.x+self.view.frame.width, y: 0)
         })
-        
-        if currentQuestionIndex == quiz.questions.count {
+
+        if currentQuestionIndex == quiz.questions?.count {
             guard startTimer != nil else { return }
             self.timeCalculation()
         }
@@ -110,14 +111,12 @@ class ScrollabeQuizViewController: UIViewController {
     
     @objc
     func onSendResult(_ sender: UIButton) {
-        //zaredaj guard da ljepse izgleda, da je preglednije
-        guard let userId = UserDefaults.standard.object(forKey: "id") as? Int else {
+        guard let userId = UserDefaults.standard.object(forKey: "id") as? Int,
+            let time = self.time else {
             return
         }
         
-        guard let time = self.time else { return }
-        
-        let result = Result(quiz_id: self.quiz.id, user_id: userId, time: time, no_of_correct: correctAnswers)
+        let result = Result(quiz_id: Int(self.quiz.id), user_id: userId, time: time, no_of_correct: correctAnswers)
         
         self.result = result
         

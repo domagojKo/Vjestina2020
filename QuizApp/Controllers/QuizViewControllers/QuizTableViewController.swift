@@ -12,7 +12,8 @@ class QuizTableViewController: UIViewController {
     
     let quizTableView = UITableView()
     var footerView: LogoutTableViewFooter!
-    var quizzes = [Quiz]() {
+
+    var quizzes = [Quizz]() {
         didSet {
             DispatchQueue.main.async {
                 self.quizTableView.reloadData()
@@ -21,7 +22,7 @@ class QuizTableViewController: UIViewController {
     }
     
     var quizCategories: [String] {
-        return quizzes.map { $0.category }
+        return quizzes.map { $0.category! }
     }
     
     var uniqueCategories: [String] {
@@ -33,7 +34,12 @@ class QuizTableViewController: UIViewController {
         self.title = "PopQuiz"
         
         self.setupTableView()
-        self.getQuizzes()
+
+        guard let quiz = CoreDataStack.instance.quizzes, !quiz.isEmpty else {
+            self.getQuizzesV2()
+            return
+        }
+        self.quizzes = quiz
     }
     
     func setupTableView() {
@@ -57,25 +63,24 @@ class QuizTableViewController: UIViewController {
         quizTableView.dataSource = self
     }
     
-    func getQuizzes() {
-        QuizAPI.instance.fetchQuizzes { [weak self] data, error in
+    func quizzesFilter(section: Int) -> [Quizz] {
+        return quizzes.filter { $0.category == uniqueCategories[section] }
+    }
+    
+    deinit {
+        print("Deinit Quiz TableVC.")
+    }
+    
+    func getQuizzesV2() {
+        QuizAPI.instance.fetchQuizzesV2 { [weak self] data, error in
             guard let self = self else { return }
             if let err = error {
                 print("Problem with fetching data: \(err.localizedDescription)")
                 return
             }
             guard let quizData = data else { return }
-            
-            self.quizzes = quizData.quizzes
+            self.quizzes = quizData
         }
-    }
-    
-    func quizzesFilter(section: Int) -> [Quiz] {
-        return quizzes.filter { $0.category == uniqueCategories[section] }
-    }
-    
-    deinit {
-        print("Deinit Quiz TableVC.")
     }
 }
 

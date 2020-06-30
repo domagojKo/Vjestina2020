@@ -93,11 +93,13 @@ class QuestionView: UIView {
 }
 
 extension QuestionView {
-    func setupQuestion(question: Question) {
+    func setupQuestion(question: Questionn) {
         self.questionLabel.text = question.question
-        self.firstButton.setTitle(question.answers[0], for: .normal)
-        self.secondButton.setTitle(question.answers[1], for: .normal)
-        self.thirdButton.setTitle(question.answers[2], for: .normal)
-        self.fourthButton.setTitle(question.answers[3], for: .normal)
+        guard var answers = question.answers?.allObjects as? [Answer] else { return }
+        answers = answers.sorted { $0.index < $1.index }
+        self.firstButton.setTitle(answers[0].answer, for: .normal)
+        self.secondButton.setTitle(answers[1].answer, for: .normal)
+        self.thirdButton.setTitle(answers[2].answer, for: .normal)
+        self.fourthButton.setTitle(answers[3].answer, for: .normal)
     }
 }
